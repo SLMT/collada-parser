@@ -8,7 +8,7 @@ import java.io.IOException;
 public class Test {
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
-		Parser parser = new Parser(new FileInputStream(new File("C:\\Users\\SLMT\\Desktop\\cube.xml")));
+		Parser parser = new Parser(new FileInputStream(new File("examples/cube.dae")));
 		parser.parseToColladaObject();
 	}
 

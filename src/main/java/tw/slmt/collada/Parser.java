@@ -44,11 +44,39 @@ public class Parser {
 		// Parse the child nodes
 		childNodes = colladaNode.getChildNodes();
 		for (int i = 0; i < childNodes.getLength(); i++) {
-			Node childNode = childNodes.item(0);
+			Node childNode = childNodes.item(i);
 			
-			// TODO: Finish this
+			switch (NodeType.parse(childNode.getNodeName())) {
+			case ASSET:
+				asset(childNode);
+				break;
+			case LIB_MAT:
+				// TODO: Wait for implementation
+				break;
+			case LIB_EFFECT:
+				// TODO: Wait for implementation
+				break;
+			case LIB_GEO:
+				// TODO: Wait for implementation
+				break;
+			case LIB_VIS_SCENE:
+				// TODO: Wait for implementation
+				break;
+			case SCENE:
+				// TODO: Wait for implementation
+				break;
+			default:
+				// Do nothing
+				break;
+			}
 		}
 
+		// TODO: Wait for implementation
+		return null;
+	}
+	
+	public Metadata asset(Node node) {
+		// TODO: Wait for implementation
 		return null;
 	}
 

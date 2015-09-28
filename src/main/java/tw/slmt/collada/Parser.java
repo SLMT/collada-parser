@@ -40,44 +40,93 @@ public class Parser {
 
 		// Get the Collada node
 		Node colladaNode = xmlDoc.getChildNodes().item(0);
-		
+
 		// Parse the child nodes
 		childNodes = colladaNode.getChildNodes();
 		for (int i = 0; i < childNodes.getLength(); i++) {
 			Node childNode = childNodes.item(i);
-			
-			switch (NodeType.parse(childNode.getNodeName())) {
-			case ASSET:
+			String nodeName = childNode.getNodeName();
+
+			if (nodeName.equals("asset"))
 				asset(childNode);
-				break;
-			case LIB_MAT:
-				// TODO: Wait for implementation
-				break;
-			case LIB_EFFECT:
-				// TODO: Wait for implementation
-				break;
-			case LIB_GEO:
-				// TODO: Wait for implementation
-				break;
-			case LIB_VIS_SCENE:
-				// TODO: Wait for implementation
-				break;
-			case SCENE:
-				// TODO: Wait for implementation
-				break;
-			default:
-				// Do nothing
-				break;
-			}
+			else if (nodeName.equals("library_materials"))
+				; // TODO: Wait for implementation
+			else if (nodeName.equals("library_effects"))
+				; // TODO: Wait for implementation
+			else if (nodeName.equals("library_geometries"))
+				; // TODO: Wait for implementation
+			else if (nodeName.equals("library_visual_scenes"))
+				; // TODO: Wait for implementation
+			else if (nodeName.equals("scene"))
+				;
 		}
 
 		// TODO: Wait for implementation
 		return null;
 	}
-	
+
 	public Metadata asset(Node node) {
-		// TODO: Wait for implementation
-		return null;
+		Metadata meta = new Metadata();
+		
+		// Parse the child nodes
+		NodeList childNodes = node.getChildNodes();
+		for (int i = 0; i < childNodes.getLength(); i++) {
+			Node childNode = childNodes.item(i);
+			String nodeName = childNode.getNodeName();
+
+			if (nodeName.equals("contributor"))
+				meta.addContributor(contributor(childNode));
+			else if (nodeName.equals("coverage"))
+				; // TODO: Wait for implementation
+			else if (nodeName.equals("created"))
+				; // TODO: Wait for implementation
+			else if (nodeName.equals("keywords"))
+				; // TODO: Wait for implementation
+			else if (nodeName.equals("modified"))
+				; // TODO: Wait for implementation
+			else if (nodeName.equals("revision"))
+				; // TODO: Wait for implementation
+			else if (nodeName.equals("subject"))
+				; // TODO: Wait for implementation
+			else if (nodeName.equals("title"))
+				; // TODO: Wait for implementation
+			else if (nodeName.equals("unit"))
+				; // TODO: Wait for implementation
+			else if (nodeName.equals("up_axis"))
+				; // TODO: Wait for implementation
+			else if (nodeName.equals("extra"))
+				; // TODO: Wait for implementation
+		}
+
+		return meta;
+	}
+
+	public Contributor contributor(Node node) {
+		Contributor con = new Contributor();
+		
+		// Parse the child nodes
+		NodeList childNodes = node.getChildNodes();
+		for (int i = 0; i < childNodes.getLength(); i++) {
+			Node childNode = childNodes.item(i);
+			String nodeName = childNode.getNodeName();
+			
+			if (nodeName.equals("author"))
+				con.author = childNode.getTextContent();
+			else if (nodeName.equals("author_email"))
+				con.author_email = childNode.getTextContent();
+			else if (nodeName.equals("author_website"))
+				con.author_website = childNode.getTextContent();
+			else if (nodeName.equals("authoring_tool"))
+				con.authoring_tool = childNode.getTextContent();
+			else if (nodeName.equals("comments"))
+				con.comments = childNode.getTextContent();
+			else if (nodeName.equals("copyright"))
+				con.copyright = childNode.getTextContent();
+			else if (nodeName.equals("source_data"))
+				con.source_data = childNode.getTextContent();
+		}
+
+		return con;
 	}
 
 	private void throwFormatError(String detail) {

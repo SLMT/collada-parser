@@ -1,4 +1,4 @@
-package tw.slmt.collada;
+package tw.slmt.collada.parse;
 
 public class Contributor {
 	protected String author;

@@ -1,4 +1,4 @@
-package tw.slmt.collada;
+package tw.slmt.collada.parse;
 
 @SuppressWarnings("serial")
 public class ParseException extends RuntimeException {

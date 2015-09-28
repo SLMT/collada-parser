@@ -2,16 +2,15 @@
 <COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
 	<asset>
 		<contributor>
-			<author></author>
+			<author>SLMT</author>
 			<authoring_tool>FBX COLLADA exporter</authoring_tool>
-			<comments></comments>
+			<comments>A classic teapot model.</comments>
 		</contributor>
 		<created>2015-09-25T03:49:47Z</created>
-		<keywords></keywords>
+		<keywords>teapot test classic</keywords>
 		<modified>2015-09-25T03:49:47Z</modified>
-		<revision></revision>
-		<subject></subject>
-		<title></title>
+		<revision>1.0.0</revision>
+		<title>Teapot</title>
 		<unit meter="0.025400" name="centimeter"></unit>
 		<up_axis>Y_UP</up_axis>
 	</asset>

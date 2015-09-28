@@ -9,6 +9,7 @@
 		<created>2005-11-14T02:16:38Z</created>
 		<modified>2005-11-15T11:36:38Z</modified>
 		<revision>1.0</revision>
+		<keywords>cube test</keywords>
 	</asset>
 	<library_effects>
 		<effect id="whitePhong">

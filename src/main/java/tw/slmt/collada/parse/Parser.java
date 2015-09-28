@@ -1,18 +1,26 @@
-package tw.slmt.collada;
+package tw.slmt.collada.parse;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.StringTokenizer;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import tw.slmt.collada.parse.Metadata.UpAxis;
+
 public class Parser {
+	private static final Logger logger = LogManager.getLogger(Parser.class);
 
 	private Document xmlDoc;
 
@@ -31,6 +39,7 @@ public class Parser {
 	}
 
 	public ColladaObject parseToColladaObject() {
+		ColladaObject result = new ColladaObject();
 
 		// Check if there is a Collada node
 		NodeList childNodes = xmlDoc.getChildNodes();
@@ -48,7 +57,7 @@ public class Parser {
 			String nodeName = childNode.getNodeName();
 
 			if (nodeName.equals("asset"))
-				asset(childNode);
+				result.metadata = asset(childNode);
 			else if (nodeName.equals("library_materials"))
 				; // TODO: Wait for implementation
 			else if (nodeName.equals("library_effects"))
@@ -61,13 +70,12 @@ public class Parser {
 				;
 		}
 
-		// TODO: Wait for implementation
-		return null;
+		return result;
 	}
 
-	public Metadata asset(Node node) {
+	private Metadata asset(Node node) {
 		Metadata meta = new Metadata();
-		
+
 		// Parse the child nodes
 		NodeList childNodes = node.getChildNodes();
 		for (int i = 0; i < childNodes.getLength(); i++) {
@@ -76,40 +84,66 @@ public class Parser {
 
 			if (nodeName.equals("contributor"))
 				meta.addContributor(contributor(childNode));
+			
 			else if (nodeName.equals("coverage"))
-				; // TODO: Wait for implementation
+				// TODO: Not implemented
+				notImplemented("<coverage>");
+			
 			else if (nodeName.equals("created"))
-				; // TODO: Wait for implementation
+				meta.createdTime = javax.xml.bind.DatatypeConverter
+						.parseDateTime(childNode.getTextContent());
+			
 			else if (nodeName.equals("keywords"))
-				; // TODO: Wait for implementation
+				meta.keywords = wordSet(childNode.getTextContent());
+			
 			else if (nodeName.equals("modified"))
-				; // TODO: Wait for implementation
+				meta.modifiedTime = javax.xml.bind.DatatypeConverter
+						.parseDateTime(childNode.getTextContent());
+			
 			else if (nodeName.equals("revision"))
-				; // TODO: Wait for implementation
+				// XXX: Not sure what this is for
+				meta.revision = childNode.getTextContent();
+			
 			else if (nodeName.equals("subject"))
-				; // TODO: Wait for implementation
+				meta.subject = childNode.getTextContent();
+			
 			else if (nodeName.equals("title"))
-				; // TODO: Wait for implementation
-			else if (nodeName.equals("unit"))
-				; // TODO: Wait for implementation
-			else if (nodeName.equals("up_axis"))
-				; // TODO: Wait for implementation
-			else if (nodeName.equals("extra"))
-				; // TODO: Wait for implementation
+				meta.title = childNode.getTextContent();
+			
+			else if (nodeName.equals("unit")) {
+				String meter = retrieveAttribute(childNode, "meter");
+				String name = retrieveAttribute(childNode, "name");
+				
+				meta.metersPerUnit = Double.parseDouble(meter);
+				meta.unitName = name;
+				
+			} else if (nodeName.equals("up_axis")) {
+				String value = childNode.getTextContent();
+				
+				if (value.equals("X_UP"))
+					meta.upAxis = UpAxis.X_UP;
+				else if (value.equals("Y_UP"))
+					meta.upAxis = UpAxis.Y_UP;
+				else if (value.equals("Z_UP"))
+					meta.upAxis = UpAxis.Z_UP;
+				
+			} else if (nodeName.equals("extra"))
+				// TODO: Not implemented
+				notImplemented("<extra>");
 		}
 
 		return meta;
 	}
 
-	public Contributor contributor(Node node) {
+	private Contributor contributor(Node node) {
 		Contributor con = new Contributor();
-		
+
 		// Parse the child nodes
 		NodeList childNodes = node.getChildNodes();
 		for (int i = 0; i < childNodes.getLength(); i++) {
 			Node childNode = childNodes.item(i);
 			String nodeName = childNode.getNodeName();
-			
+
 			if (nodeName.equals("author"))
 				con.author = childNode.getTextContent();
 			else if (nodeName.equals("author_email"))
@@ -128,9 +162,27 @@ public class Parser {
 
 		return con;
 	}
+	
+	private Set<String> wordSet(String words) {
+		StringTokenizer st = new StringTokenizer(words);
+		Set<String> results = new HashSet<String>();
+		
+		while (st.hasMoreTokens())
+			results.add(st.nextToken());
+		
+		return results;
+	}
 
 	private void throwFormatError(String detail) {
+		if (logger.isErrorEnabled())
+			logger.error("Document format error: " + detail);
 		throw new ParseException("Document format error: " + detail);
+	}
+
+	private void notImplemented(String component) {
+		if (logger.isWarnEnabled())
+			logger.warn("Parsing task for '" + component
+					+ "' node is not implemented.");
 	}
 
 	private String retrieveAttribute(Node node, String attrName) {

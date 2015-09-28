@@ -5,10 +5,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import tw.slmt.collada.parse.Parser;
+
 public class Test {
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
-		Parser parser = new Parser(new FileInputStream(new File("examples/cube.dae")));
+		System.setProperty("log4j.configurationFile", "logging_config.xml");
+		
+		Parser parser = new Parser(new FileInputStream(new File("examples/teapot.dae")));
 		parser.parseToColladaObject();
 	}
 

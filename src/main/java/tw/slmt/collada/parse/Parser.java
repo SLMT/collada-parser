@@ -21,24 +21,27 @@ import tw.slmt.collada.parse.Metadata.UpAxis;
 
 public class Parser {
 	private static final Logger logger = LogManager.getLogger(Parser.class);
-
-	private Document xmlDoc;
-
-	public Parser(InputStream xmlStream) throws IOException {
+	
+	// TODO: Add a overloaded method for parsing String object.
+	// It should be noted that the method have to handle the IOException itself.
+	
+	public ColladaObject parseToColladaObject(InputStream xmlStream) throws IOException {
 		try {
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory
 					.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			xmlDoc = dBuilder.parse(xmlStream);
+			Document xmlDoc = dBuilder.parse(xmlStream);
+			
+			return parseToColladaObject(xmlDoc);
 		} catch (ParserConfigurationException e) {
-			new RuntimeException(
+			throw new RuntimeException(
 					"Something went wrong. Please contact the developer.");
 		} catch (SAXException e) {
 			throw new ParseException(e.getMessage());
 		}
 	}
 
-	public ColladaObject parseToColladaObject() {
+	public ColladaObject parseToColladaObject(Document xmlDoc) {
 		ColladaObject result = new ColladaObject();
 
 		// Check if there is a Collada node
@@ -58,11 +61,11 @@ public class Parser {
 
 			if (nodeName.equals("asset"))
 				result.metadata = asset(childNode);
+			else if (nodeName.equals("library_geometries"))
+				; // TODO: Wait for implementation
 			else if (nodeName.equals("library_materials"))
 				; // TODO: Wait for implementation
 			else if (nodeName.equals("library_effects"))
-				; // TODO: Wait for implementation
-			else if (nodeName.equals("library_geometries"))
 				; // TODO: Wait for implementation
 			else if (nodeName.equals("library_visual_scenes"))
 				; // TODO: Wait for implementation
@@ -86,7 +89,7 @@ public class Parser {
 				meta.addContributor(contributor(childNode));
 			
 			else if (nodeName.equals("coverage"))
-				// TODO: Not implemented
+				// XXX: Not implemented
 				notImplemented("<coverage>");
 			
 			else if (nodeName.equals("created"))
@@ -128,7 +131,7 @@ public class Parser {
 					meta.upAxis = UpAxis.Z_UP;
 				
 			} else if (nodeName.equals("extra"))
-				// TODO: Not implemented
+				// XXX: Not implemented
 				notImplemented("<extra>");
 		}
 

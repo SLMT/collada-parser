@@ -12,8 +12,8 @@ public class Test {
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		System.setProperty("log4j.configurationFile", "logging_config.xml");
 		
-		Parser parser = new Parser(new FileInputStream(new File("examples/teapot.dae")));
-		parser.parseToColladaObject();
+		Parser parser = new Parser();
+		parser.parseToColladaObject(new FileInputStream(new File("examples/teapot.dae")));
 	}
 
 }

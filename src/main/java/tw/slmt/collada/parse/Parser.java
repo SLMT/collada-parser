@@ -15,6 +15,7 @@ import org.xml.sax.SAXException;
 public class Parser extends ParserBase {
 	
 	private AssetParser asPsr = new AssetParser();
+	private GeoParser geoPsr = new GeoParser();
 	
 	// TODO: Add a overloaded method for parsing String object.
 	// It should be noted that the method have to handle the IOException itself.
@@ -56,7 +57,7 @@ public class Parser extends ParserBase {
 			if (nodeName.equals("asset"))
 				result.metadata = asPsr.asset(childNode);
 			else if (nodeName.equals("library_geometries"))
-				; // TODO: Wait for implementation
+				geoPsr.geomertries(childNode); // TODO: We should save what it returns
 			else if (nodeName.equals("library_materials"))
 				; // TODO: Wait for implementation
 			else if (nodeName.equals("library_effects"))

@@ -4,11 +4,11 @@ import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Metadata {
+public class MetadataData {
 	
 	public enum UpAxis { X_UP, Y_UP, Z_UP }
 	
-	private Set<Contributor> contributors = new HashSet<Contributor>();
+	private Set<ContributorData> contributors = new HashSet<ContributorData>();
 	
 	protected Calendar createdTime;
 	protected Calendar modifiedTime;
@@ -23,7 +23,7 @@ public class Metadata {
 	protected String unitName = "meter";
 	protected UpAxis upAxis = UpAxis.Y_UP;
 	
-	protected void addContributor(Contributor con) {
+	protected void addContributor(ContributorData con) {
 		contributors.add(con);
 	}
 	
@@ -31,8 +31,8 @@ public class Metadata {
 	//   Getters
 	// ===========
 	
-	public Set<Contributor> getContributors() {
-		return new HashSet<Contributor>(contributors);
+	public Set<ContributorData> getContributors() {
+		return new HashSet<ContributorData>(contributors);
 	}
 	
 	public Calendar getCreatedTime() {

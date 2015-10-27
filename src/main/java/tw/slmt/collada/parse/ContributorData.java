@@ -1,6 +1,6 @@
 package tw.slmt.collada.parse;
 
-public class Contributor {
+public class ContributorData {
 	protected String author;
 	protected String author_email;
 	protected String author_website;

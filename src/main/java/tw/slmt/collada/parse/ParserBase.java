@@ -33,11 +33,24 @@ public abstract class ParserBase {
 					+ "' node is not implemented.");
 	}
 
-	protected String retrieveAttribute(Node node, String attrName) {
-		if (!node.hasAttributes())
-			throwFormatError("The node '" + node.getNodeName()
-					+ "' should have a attribute '" + attrName + "'.");
+	protected String retrieveAttribute(Node node, String attrName, boolean isNecessary) {
+		if (!node.hasAttributes()) {
+			if (isNecessary)
+				throwFormatError("The node '" + node.getNodeName()
+						+ "' should have a attribute '" + attrName + "'.");
+			else
+				return null;
+		}
+		
+		Node attrNode = node.getAttributes().getNamedItem(attrName);
+		if (attrNode == null) {
+			if (isNecessary)
+				throwFormatError("The node '" + node.getNodeName()
+						+ "' should have a attribute '" + attrName + "'.");
+			else
+				return null;
+		}
 
-		return node.getAttributes().getNamedItem(attrName).getNodeValue();
+		return attrNode.getNodeValue();
 	}
 }

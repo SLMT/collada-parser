@@ -13,7 +13,7 @@ public class Test {
 		System.setProperty("log4j.configurationFile", "logging_config.xml");
 		
 		Parser parser = new Parser();
-		parser.parseToColladaObject(new FileInputStream(new File("examples/teapot.dae")));
+		parser.parseToColladaData(new FileInputStream(new File("examples/teapot.dae")));
 	}
 
 }

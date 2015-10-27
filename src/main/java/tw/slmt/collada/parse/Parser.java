@@ -20,14 +20,14 @@ public class Parser extends ParserBase {
 	// TODO: Add a overloaded method for parsing String object.
 	// It should be noted that the method have to handle the IOException itself.
 	
-	public ColladaData parseToColladaObject(InputStream xmlStream) throws IOException {
+	public ColladaData parseToColladaData(InputStream xmlStream) throws IOException {
 		try {
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory
 					.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document xmlDoc = dBuilder.parse(xmlStream);
 			
-			return parseToColladaObject(xmlDoc);
+			return parseToColladaData(xmlDoc);
 		} catch (ParserConfigurationException e) {
 			throw new RuntimeException(
 					"Something went wrong. Please contact the developer.");
@@ -36,7 +36,7 @@ public class Parser extends ParserBase {
 		}
 	}
 
-	public ColladaData parseToColladaObject(Document xmlDoc) {
+	public ColladaData parseToColladaData(Document xmlDoc) {
 		ColladaData result = new ColladaData();
 
 		// Check if there is a Collada node

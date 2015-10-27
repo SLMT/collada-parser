@@ -46,8 +46,8 @@ public class AssetParser extends ParserBase {
 				meta.title = childNode.getTextContent();
 
 			else if (nodeName.equals("unit")) {
-				String meter = retrieveAttribute(childNode, "meter");
-				String name = retrieveAttribute(childNode, "name");
+				String meter = retrieveAttribute(childNode, "meter", true);
+				String name = retrieveAttribute(childNode, "name", true);
 
 				meta.metersPerUnit = Double.parseDouble(meter);
 				meta.unitName = name;

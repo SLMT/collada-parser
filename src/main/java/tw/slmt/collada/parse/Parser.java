@@ -66,6 +66,8 @@ public class Parser extends ParserBase {
 				; // TODO: Wait for implementation
 			else if (nodeName.equals("scene"))
 				;
+			else
+				notImplemented("<" + nodeName + ">");
 		}
 
 		return result;

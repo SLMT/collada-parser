@@ -62,9 +62,8 @@ public class AssetParser extends ParserBase {
 				else if (value.equals("Z_UP"))
 					meta.upAxis = UpAxis.Z_UP;
 
-			} else if (nodeName.equals("extra"))
-				// XXX: Not implemented
-				notImplemented("<extra>");
+			} else
+				notImplemented("<" + nodeName + ">");
 		}
 
 		return meta;

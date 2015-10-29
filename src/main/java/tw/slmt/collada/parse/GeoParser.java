@@ -18,17 +18,12 @@ public class GeoParser extends ParserBase {
 			Node childNode = childNodes.item(i);
 			String nodeName = childNode.getNodeName();
 
-			if (nodeName.equals("asset"))
-				// XXX: Not implemented
-				notImplemented("<asset>");
-
-			else if (nodeName.equals("geometry")) {
+			if (nodeName.equals("geometry")) {
 				GeometryData geoData = geometry(childNode);
 				geomertiesData.add(geoData);
 
-			} else if (nodeName.equals("extra"))
-				// XXX: Not implemented
-				notImplemented("<extra>");
+			} else
+				notImplemented("<" + nodeName + ">");
 		}
 
 		return geomertiesData;
@@ -43,33 +38,10 @@ public class GeoParser extends ParserBase {
 			Node childNode = childNodes.item(i);
 			String nodeName = childNode.getNodeName();
 
-			if (nodeName.equals("asset"))
-				// XXX: Not implemented
-				notImplemented("<asset>");
-
-			// ======================================
-			// The followings are geomertric elements
-			// ======================================
-
-			else if (nodeName.equals("convex_mesh")) {
-				// XXX: Not implemented
-				notImplemented("<convex_mesh>");
-
-				// The most common type
-			} else if (nodeName.equals("mesh")) {
+			if (nodeName.equals("mesh")) {
 				geoData = mesh(childNode);
-
-			} else if (nodeName.equals("spline")) {
-				// XXX: Not implemented
-				notImplemented("<spline>");
-
-			} else if (nodeName.equals("brep")) {
-				// XXX: Not implemented
-				notImplemented("<brep>");
-
-			} else if (nodeName.equals("extra"))
-				// XXX: Not implemented
-				notImplemented("<extra>");
+			} else
+				notImplemented("<" + nodeName + ">");
 		}
 
 		// Check if there is geometry data found
@@ -93,46 +65,49 @@ public class GeoParser extends ParserBase {
 			String nodeName = childNode.getNodeName();
 
 			if (nodeName.equals("source")) {
-				// TODO: Wait for implementation (spec. p.177)
-				notImplemented("<source>");
+				SourceData s = source(childNode);
+				meshData.source.put(s.id, s);
 
 			} else if (nodeName.equals("vertices")) {
 				// TODO: Wait for implementation (spec. p.196)
 				notImplemented("<vertices>");
 
-			} else if (nodeName.equals("lines")) {
-				// XXX: Not implemented
-				notImplemented("<lines>");
-
-			} else if (nodeName.equals("linestrips")) {
-				// XXX: Not implemented
-				notImplemented("<linestrips>");
-
 			} else if (nodeName.equals("polygons")) {
 				// TODO: Wait for implementation (spec. p.152)
 				notImplemented("<polygons>");
-
-			} else if (nodeName.equals("polylist")) {
-				// XXX: Not implemented
-				notImplemented("<polylist>");
 
 			} else if (nodeName.equals("triangles")) {
 				// TODO: Wait for implementation (spec. p.188)
 				notImplemented("<triangles>");
 
-			} else if (nodeName.equals("trifans")) {
-				// XXX: Not implemented
-				notImplemented("<trifans>");
-
-			} else if (nodeName.equals("tristrips")) {
-				// XXX: Not implemented
-				notImplemented("<tristrips>");
-
-			} else if (nodeName.equals("extra"))
-				// XXX: Not implemented
-				notImplemented("<extra>");
+			} else
+				notImplemented("<" + nodeName + ">");
 		}
 
 		return meshData;
+	}
+	
+	private SourceData source(Node node) {
+		SourceData sourceData = new SourceData();
+
+		// Parse the child nodes
+		NodeList childNodes = node.getChildNodes();
+		for (int i = 0; i < childNodes.getLength(); i++) {
+			Node childNode = childNodes.item(i);
+			String nodeName = childNode.getNodeName();
+
+			if (nodeName.equals("float_array")) {
+				// TODO: Wait for implementation (spec. p.77)
+				notImplemented("<float_array>");
+
+			} else if (nodeName.equals("technique_common")) {
+				// TODO: Wait for implementation (spec. p.186, p.45)
+				notImplemented("<technique_common>");
+
+			} else
+				notImplemented("<" + nodeName + ">");
+		}
+
+		return sourceData;
 	}
 }

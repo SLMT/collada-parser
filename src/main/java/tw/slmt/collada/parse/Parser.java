@@ -12,7 +12,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-public class Parser extends ParserBase {
+public class Parser extends ParserBaseClass {
 	
 	private AssetParser asPsr = new AssetParser();
 	private GeoParser geoPsr = new GeoParser();

@@ -6,7 +6,7 @@ import javax.xml.bind.DatatypeConverter;
 
 import tw.slmt.collada.parse.MetadataData.UpAxis;
 
-public class AssetParser extends ParserBase {
+public class AssetParser extends ParserBaseClass {
 
 	protected MetadataData asset(Node node) {
 		MetadataData meta = new MetadataData();

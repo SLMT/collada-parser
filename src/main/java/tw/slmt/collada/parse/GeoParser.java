@@ -6,7 +6,7 @@ import java.util.List;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class GeoParser extends ParserBase {
+public class GeoParser extends ParserBaseClass {
 
 	protected List<GeometryData> geomertries(Node node) {
 		// XXX: Maybe we can use ids as key to construct a map

@@ -8,8 +8,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Node;
 
-public abstract class ParserBase {
-	private static final Logger logger = LogManager.getLogger(ParserBase.class);
+public abstract class ParserBaseClass {
+	private static final Logger logger = LogManager.getLogger(ParserBaseClass.class);
 
 	protected Set<String> wordSet(String words) {
 		StringTokenizer st = new StringTokenizer(words);

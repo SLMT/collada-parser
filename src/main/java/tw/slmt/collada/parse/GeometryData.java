@@ -1,6 +1,6 @@
 package tw.slmt.collada.parse;
 
-public class GeometryData {
+public abstract class GeometryData {
 	
 	protected String id;
 	protected String name;

@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import tw.slmt.collada.parse.ColladaData;
 import tw.slmt.collada.parse.Parser;
 
 public class Test {
@@ -13,7 +14,8 @@ public class Test {
 		System.setProperty("log4j.configurationFile", "logging_config.xml");
 		
 		Parser parser = new Parser();
-		parser.parseToColladaData(new FileInputStream(new File("examples/cube.dae")));
+		ColladaData data = parser.parseToColladaData(new FileInputStream(new File("examples/teapot.dae")));
+		data.getGeomertires();
 	}
 
 }

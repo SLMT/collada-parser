@@ -59,7 +59,7 @@ public class Parser extends ParserBaseClass {
 			if (nodeName.equals("asset"))
 				result.metadata = asPsr.asset(childNode);
 			else if (nodeName.equals("library_geometries"))
-				geoPsr.geomertries(childNode); // TODO: We should save what it returns
+				result.geomertires = geoPsr.geomertries(childNode);
 			else if (nodeName.equals("library_materials"))
 				; // TODO: Wait for implementation
 			else if (nodeName.equals("library_effects"))

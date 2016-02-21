@@ -61,8 +61,13 @@ public abstract class ParserBaseClass {
 			boolean isNecessary, int defaultVal) {
 		String valStr = retrieveAttribute(node, attrName, false);
 		
-		if (valStr == null)
-			return defaultVal;
+		if (valStr == null) {
+			if (isNecessary)
+				throwFormatError("The node '" + node.getNodeName()
+						+ "' should have a attribute '" + attrName + "'.");
+			else
+				return defaultVal;
+		}
 		
 		int val = Integer.parseInt(valStr);
 		return val;
